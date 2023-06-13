@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityLayer.Concrete
 {
@@ -16,11 +16,13 @@ namespace EntityLayer.Concrete
 
         // Content Başlık
 
+        [ForeignKey("Heading")]
         public int HeadingId { get; set; }
         public virtual Heading Heading { get; set; }
 
 
-        public int? WriterId { get; set; }
+        [ForeignKey("Writer")]
+        public int WriterId { get; set; }
         public virtual Writer Writer { get; set; }
     }
 }

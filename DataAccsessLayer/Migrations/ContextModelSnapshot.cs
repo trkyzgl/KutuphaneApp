@@ -133,7 +133,7 @@ namespace DataAccsessLayer.Migrations
                     b.Property<int>("HeadingId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WriterId")
+                    b.Property<int>("WriterId")
                         .HasColumnType("int");
 
                     b.HasKey("ContentId");
@@ -219,7 +219,9 @@ namespace DataAccsessLayer.Migrations
 
                     b.HasOne("EntityLayer.Concrete.Writer", "Writer")
                         .WithMany("Contents")
-                        .HasForeignKey("WriterId");
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Heading");
 

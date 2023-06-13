@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccsessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230612144234_mig1")]
+    [Migration("20230612214447_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,9 +135,14 @@ namespace DataAccsessLayer.Migrations
                     b.Property<int>("HeadingId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WriterId")
+                        .HasColumnType("int");
+
                     b.HasKey("ContentId");
 
                     b.HasIndex("HeadingId");
+
+                    b.HasIndex("WriterId");
 
                     b.ToTable("Contents");
                 });
@@ -214,7 +219,15 @@ namespace DataAccsessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EntityLayer.Concrete.Writer", "Writer")
+                        .WithMany("Contents")
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Heading");
+
+                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Heading", b =>
@@ -248,6 +261,8 @@ namespace DataAccsessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
                 {
+                    b.Navigation("Contents");
+
                     b.Navigation("Headings");
                 });
 #pragma warning restore 612, 618
