@@ -13,7 +13,16 @@ namespace DataAccsessLayer.Concrete.Repositories
     public class WriterRepository : IWriterDal
     {
 
-        Context c = new Context();
+        private readonly Context c;
+
+        public WriterRepository(Context db)
+        {
+            this.c = db;
+        }
+
+
+
+        //Context c = new Context();
         DbSet<Writer> _oblect;  
 
 

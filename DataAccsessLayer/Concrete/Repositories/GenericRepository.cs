@@ -12,7 +12,17 @@ namespace DataAccsessLayer.Concrete.Repositories
     public class GenericRepository<T> : IRepository<T> where T : class 
     {
 
-        Context c = new Context();
+
+        private readonly Context c;
+
+        public GenericRepository(Context db)
+        {
+            this.c = db;
+        }
+
+
+
+        //private Context c = new Context();
         DbSet<T> _object;
 
         public GenericRepository()

@@ -12,7 +12,16 @@ namespace DataAccsessLayer.Concrete.Repositories
 {
     public class CategoryRepository : ICategoryDal
     {
-        Context c = new Context();
+
+        private readonly Context c; 
+
+        public CategoryRepository(Context context)
+        {
+            this.c = context;
+        }
+
+
+        //Context c = new Context();
         DbSet<Category> _object; 
 
 
