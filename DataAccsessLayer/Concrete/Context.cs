@@ -10,16 +10,11 @@ namespace DataAccsessLayer.Concrete
 {
     public class Context : DbContext
     {
-        public Context()
-        {
-        }
 
         public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }
-
-
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Category> Categories { get; set; }

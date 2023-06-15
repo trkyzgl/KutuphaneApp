@@ -10,8 +10,4 @@
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concrete\Repositories\" />
-  </ItemGroup>
-
 </Project>
