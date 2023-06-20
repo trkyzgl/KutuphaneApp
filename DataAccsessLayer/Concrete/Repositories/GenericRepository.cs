@@ -1,45 +1,30 @@
 ﻿using DataAccsessLayer.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccsessLayer.Concrete.Repositories
 {
-    public class GenericRepository<T> : IRepository<T> where T : class 
+    public class GenericRepository<T> : IRepository<T> where T : class, new() 
     {
+        private readonly Context _dbContext;
+        private readonly DbSet<T> _object;
 
-
-        private readonly Context c;
-
-        public GenericRepository(Context db)
+        public GenericRepository(Context c)
         {
-            this.c = db;
-        }
-
-
-
-        //private Context c = new Context();
-        DbSet<T> _object;
-
-        public GenericRepository()
-        {
-                _object = c.Set<T>();
+            _dbContext = c;
+            _object = c.Set<T>();
         }
 
         public void Delete(T p)
         {
             _object.Remove(p);
-            c.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Insert(T p)
         {
             _object.Add(p);
-            c.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public List<T> List()
@@ -52,10 +37,9 @@ namespace DataAccsessLayer.Concrete.Repositories
         {
             return _object.Where(filter).ToList();
         }
-
         public void Update(T p)
         {
-            c.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 

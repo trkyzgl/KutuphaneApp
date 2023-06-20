@@ -1,23 +1,25 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccsessLayer.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KutuphaneApp.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly ICategoryDal _categoryDal;
 
-
-
-        CategoryManager cm = new CategoryManager(); 
-
+        public CategoryController(ICategoryDal categoryDal)
+        {
+            _categoryDal = categoryDal;
+        }
 
         public IActionResult Index()
         {
             return View();
         }
-        public ActionResult GetCatogeryList()
+        public ActionResult GetCategoryList()
         {
-            var categoryvalues = cm.GetAllBL();
+            var categoryvalues = _categoryDal.List();
 
             return View(categoryvalues);  
         }

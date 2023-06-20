@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace DataAccsessLayer.Abstract
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class, new()
     {
         List<T> List();
         void Insert(T p);
         void Delete(T p);
         void Update(T p);
-
         List<T> List(Expression<Func<T, bool>> filter);
-
-
     }
 }

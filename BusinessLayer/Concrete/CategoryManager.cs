@@ -1,32 +1,59 @@
-﻿using DataAccsessLayer.Concrete.Repositories;
+﻿using DataAccsessLayer.Abstract;
+using DataAccsessLayer.Concrete.Repositories;
+using DataAccsessLayer.UnitOfWorks;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class CategoryManager
+    public class CategoryManager:ICategoryDal
     {
-        GenericRepository<Category> repo= new GenericRepository<Category>();   
+        private readonly IUnitOfWork _unitOfWork;
 
-        public List<Category> GetAllBL()
+        public CategoryManager(IUnitOfWork unitOfWork)
         {
-            return repo.List();
-            
+            _unitOfWork = unitOfWork;
         }
-        public void CategoryAddBL(Category p)
+
+        public List<Category> List()
         {
-            if (p.CategoryName == "" || p.CategoryName.Length <=3 || p.CategoryDescription ==""|| p.CategoryName.Length > 51)
+            var categories = _unitOfWork.GetRepository<Category>().List().ToList();
+            return categories;
+        }
+
+        public void Insert(Category p)
+        {
+            if (p.CategoryName == "" || p.CategoryName.Length <= 3 || p.CategoryDescription == "" || p.CategoryName.Length > 51)
             {
                 //Hata Mesajı alıncak yer
             }
             else
             {
-                repo.Insert(p);
+                _unitOfWork.GetRepository<Category>().Insert(p);
+                _unitOfWork.Save();
             }
+        }
+
+        public void Delete(Category p)
+        {
+            _unitOfWork.GetRepository<Category>().Delete(p);
+            _unitOfWork.Save();
+        }
+
+        public void Update(Category p)
+        {
+            _unitOfWork.GetRepository<Category>().Update(p);
+            _unitOfWork.Save();
+        }
+
+        public List<Category> List(Expression<Func<Category, bool>> filter)
+        {
+            return _unitOfWork.GetRepository<Category>().List(filter).ToList();            
         }
     }
 }
