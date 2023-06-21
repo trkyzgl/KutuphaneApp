@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccsessLayer.Abstract;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KutuphaneApp.Controllers
@@ -17,12 +18,30 @@ namespace KutuphaneApp.Controllers
         {
             return View();
         }
-        public ActionResult GetCategoryList()
-            var categoryvalues = _categoryDal.GetList();
+        public ActionResult CategoryList()
         {
             var categoryvalues = _categoryDal.List();
+            return View(categoryvalues);
+        }
 
-            return View(categoryvalues);  
+        [HttpGet]
+        public ActionResult AddCategory()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddCategory(Category p)
+        {
+            _categoryDal.Insert(p);
+            return RedirectToAction("CategoryList");
+
+        }
+
+        public ActionResult DeleteCategory(Category p)
+        {
+            return RedirectToAction("CategoryList");
         }
     }
 }

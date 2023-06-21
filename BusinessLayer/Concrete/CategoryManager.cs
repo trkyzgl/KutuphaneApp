@@ -53,7 +53,7 @@ namespace BusinessLayer.Concrete
 
         public List<Category> List(Expression<Func<Category, bool>> filter)
         {
-            return _unitOfWork.GetRepository<Category>().List(filter).ToList();            
+            return _unitOfWork.GetRepository<Category>().List(filter).ToList();
         }
     }
 }
