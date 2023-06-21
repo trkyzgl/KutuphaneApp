@@ -18,6 +18,7 @@ namespace KutuphaneApp.Controllers
             return View();
         }
         public ActionResult GetCategoryList()
+            var categoryvalues = _categoryDal.GetList();
         {
             var categoryvalues = _categoryDal.List();
 
