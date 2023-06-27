@@ -36,8 +36,14 @@
                 <td>@item.CategoryDescription</td>
                 <td>@item.CategoryStatus</td>
 
-                <td><button class="btn btn-success">Güncelle</button></td>
+                <td><button class="btn btn-success" >Güncelle</button></td>
+                <!--
                 <td><button class="btn btn-danger">Sil</button></td>
+                -->
+                <td>
+                    <a class="btn btn-danger text-white" name="@item.CategoryId" asp-controller="Category" asp-action="DeleteCategory" 
+                    asp-route-id="@item.CategoryId">Sil</a>
+                </td>
             </tr>
         }
 </body>

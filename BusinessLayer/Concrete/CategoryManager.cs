@@ -1,4 +1,5 @@
-﻿using DataAccsessLayer.Abstract;
+﻿using BusinessLayer.Abstact;
+using DataAccsessLayer.Abstract;
 using DataAccsessLayer.Concrete.Repositories;
 using DataAccsessLayer.UnitOfWorks;
 using EntityLayer.Concrete;
@@ -15,7 +16,7 @@ namespace BusinessLayer.Concrete
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryManager(IUnitOfWork unitOfWork)
+                public CategoryManager(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -55,5 +56,12 @@ namespace BusinessLayer.Concrete
         {
             return _unitOfWork.GetRepository<Category>().List(filter).ToList();
         }
+
+        public List<Category> GetList()
+        {
+            return _unitOfWork.GetRepository<Category>().List().ToList();
+        }
+
+
     }
 }

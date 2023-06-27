@@ -1,7 +1,10 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccsessLayer.Abstract;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+//using System.ComponentModel.DataAnnotations;
 
 namespace KutuphaneApp.Controllers
 {
@@ -34,13 +37,30 @@ namespace KutuphaneApp.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
-            _categoryDal.Insert(p);
-            return RedirectToAction("CategoryList");
+            //_categoryDal.Insert(p);
+            CategoryValidator categoryValidator = new CategoryValidator();
+            ValidationResult results = categoryValidator.Validate(p);
+            if (results.IsValid)
+            {
+                //cm.CategoryAddBl(p); olması gereken 
+                _categoryDal.Insert(p); // şimdilik yaptığım
+                return RedirectToAction("CategoryList");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
 
         }
 
         public ActionResult DeleteCategory(Category p)
         {
+
+            _categoryDal.Delete(p); 
             return RedirectToAction("CategoryList");
         }
     }

@@ -1,7 +1,24 @@
-﻿@*
+﻿@model EntityLayer.Concrete.Category
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+}
+<div>Kategori Ekleme Alanı </div>
+
+@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Kategori Adı")
+        @Html.TextBoxFor(x=>x.CategoryName)
+        @Html.ValidationMessageFor(x=>x.CategoryName)
+        <br><br>
+        @Html.Label("Kategori Açıklaması")
+        @Html.TextBoxFor(x=>x.CategoryDescription)
+        @Html.ValidationMessageFor(x=>x.CategoryDescription)
+        <br><br>
+        <button>Kaydet</button>
+    </div>
 }
 
 <html>
@@ -11,18 +28,17 @@
 </head>
 <body>
 
-    <div>Kategori Ekleme Alanı </div>
+ 
 
 
+    @*    <form class="form-group" method="post">
+    <input type="text" name="CategoryName" placeholder="Kategori Adı" class="form-control" />
+    <br />
+    <input type="text" name="CategoryDescription" placeholder="Kategori Açıklaması" class="form-control" />
+    <br />
+    <button class="btn btn-primary">Ekle</button>
 
-    <form class="form-group" method="post">
-        <input type="text" name="CategoryName" placeholder="Kategori Adı" class="form-control" />
-        <br />
-        <input type="text" name="CategoryDescription" placeholder="Kategori Açıklaması" class="form-control" />
-        <br />
-        <button class="btn btn-primary">Ekle</button>
-
-    </form>
+    </form>*@
 
 
 </body>

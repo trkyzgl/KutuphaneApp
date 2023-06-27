@@ -2,6 +2,7 @@ using BusinessLayer.Concrete;
 using DataAccsessLayer.Abstract;
 using DataAccsessLayer.Concrete;
 using DataAccsessLayer.UnitOfWorks;
+using KutuphaneApp.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -62,8 +63,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseCustomRote();
 
 app.Run();
